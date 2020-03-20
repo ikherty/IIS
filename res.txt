@@ -27,10 +27,13 @@ PROC print data=carLength(obs=10);
 	var Make Model Type Length; 
     title4 "10 максимальных значений переменной LENGTH"; 
 run; 
-proc means data=sashelp.cars chartype mean std min max n vardef=df; 
-    var MSRP MPG_Highway EngineSize Weight Horsepower; 
-    title "Summary Statistics from Cars Data Set"; 
+
+PROC summary data=sashelp.cars; 
+    class Make Origin;
+    var MPG_City MPG_Highway Weight Length; 
+    output out=statistic  
+            mean(MPG_City MPG_Highway Weight Length)=  
+            std(MPG_City MPG_Highway Weight Length)=    
+         / autoname autolabel; 
+    title5 "статистика"
 run; 
-proc summary data=sashelp.cars  
-    title "Summary Statistics from Cars Data Set";  
-run;
