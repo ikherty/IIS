@@ -28,12 +28,20 @@ PROC print data=carLength(obs=10);
     title4 "10 максимальных значений переменной LENGTH"; 
 run; 
 
-PROC summary data=sashelp.cars; 
-    class Make Origin;
+PROC summary data=sashelp.cars;  
+    class Make Origin; 
     var MPG_City MPG_Highway Weight Length; 
-    output out=statistic  
-            mean(MPG_City MPG_Highway Weight Length)=  
-            std(MPG_City MPG_Highway Weight Length)=    
-         / autoname autolabel; 
-    title5 "статистика"
+    output out=statistic 
+            mean(MPG_City MPG_Highway Weight Length)=   
+            std(MPG_City MPG_Highway Weight Length)=     
+         / autoname autolabel;  
+    title5 "статистика по Make, Origin"; 
 run; 
+PROC print; 
+run;
+
+PROC univariate data=sashelp.cars; 
+    var Invoice; 
+    histogram / midpercents=10 to 50; 
+    title6 "гистограмма"; 
+run;
