@@ -1,0 +1,36 @@
+
+/************************************************************************ 
+ЗАДАНИЕ: 
+>Входной набор данных SASHELP.CARS 
+>Распечатать наблюдения, которым соответствуют 10 максимальных 
+ значений переменной LENGTH (PROC SORT PROC PRINT) 
+>Рассчитать и распечатать статистики переменных WEIGHT, LENGTH 
+ MPG_CITY MPG_HIGHWAY (MEAN, STD) для классифицирующих переменных 
+ ORIGIN MAKE, c обобщенными статистиками (PROC SUMMARY) 
+>Построить гистограмму для переменной INVOICE разбить интервал значений 
+ на 50 частей, наложить функцию нормального распределения 
+ (без распечатки таблиц, PROC UNIVARIATE, HISTOGRAM). 
+ Рассчитать статистики для переменной INVOICE, дать интерпретацию графика 
+>Рассчитать корреляционную матрицу (корреляции Пирсона, прямоугольную!!!) 
+ для переменных INVOICE LENGTH с переменными HORSEPOWER WEIGHT 
+ (использовать PROC CORR с VAR, WITH) 
+ *********************************** ***********************************/ 
+title1 Контрольная точка №1.    Вариант 7.;  
+title2 Выполнила Петренко В.Ю.    Группа ИС-Б17; 
+title3 ; 
+run; 
+ 
+PROC sort data=sashelp.cars out=carLength;  
+	by descending Length; 
+run; 
+PROC print data=carLength(obs=10); 
+	var Make Model Type Length; 
+    title4 "10 максимальных значений переменной LENGTH"; 
+run; 
+proc means data=sashelp.cars chartype mean std min max n vardef=df; 
+    var MSRP MPG_Highway EngineSize Weight Horsepower; 
+    title "Summary Statistics from Cars Data Set"; 
+run; 
+proc summary data=sashelp.cars  
+    title "Summary Statistics from Cars Data Set";  
+run;
