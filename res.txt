@@ -1,4 +1,3 @@
-
 /************************************************************************ 
 ЗАДАНИЕ: 
 >Входной набор данных SASHELP.CARS 
@@ -25,7 +24,7 @@ PROC sort data=sashelp.cars out=carLength;
 run; 
 PROC print data=carLength(obs=10); 
 	var Make Model Type Length; 
-    title4 "10 максимальных значений переменной LENGTH"; 
+    title4 "Наблюдения, которым соответствуют 10 максимальных значений переменной LENGTH"; 
 run; 
 title;
 PROC summary data=sashelp.cars;  
@@ -35,7 +34,8 @@ PROC summary data=sashelp.cars;
             mean(MPG_City MPG_Highway Weight Length)=   
             std(MPG_City MPG_Highway Weight Length)=     
          / autoname autolabel;  
-    title5 "статистика по Make, Origin"; 
+    title5 "Статистики переменных WEIGHT, LENGTH  MPG_CITY MPG_HIGHWAY для классифицирующих переменных ORIGIN MAKE";
+    title6 "c обобщенными статистиками"; 
 run; 
 PROC print; 
 run;
@@ -43,11 +43,17 @@ title;
 PROC univariate data=sashelp.cars noprint;  
     var Invoice;  
     histogram invoice / midpoints=(0 to 250000 by 5000);  
-    title6 "гистограмма";  
+    title7 "Гистограмма для переменной INVOICE";  
 run;
+/******************************************************************************
+ *Не совсем поняла, как выполнить следующее:
+ *   >Наложить функцию нормального распределения 
+ *   (без распечатки таблиц, PROC UNIVARIATE, HISTOGRAM). 
+ *   Рассчитать статистики для переменной INVOICE, дать интерпретацию графика.
+ *****************************************************************************/
 title;
-PROC CORR DATA=sashelp.cars; 
+PROC CORR DATA=sashelp.cars; /*возможно, следовало добавить = matrix*/
    var INVOICE LENGTH; 
    with HORSEPOWER WEIGHT; 
-   title7 "корреляция пирсона";  
+   title8 "Корреляционная матрица Пирсона для переменных INVOICE LENGTH с переменными HORSEPOWER WEIGHT";  
 RUN;
